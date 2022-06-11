@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<table border="1">
+<!--<table border="1">
   <tr>
     <th>Id</th>
     <th>Name</th>
@@ -19,6 +19,33 @@
     <td th:utext="${user.getAge()}"></td>
   </tr>
 </table>
-<a href="/users/new">Create new User</a>
+<a href="/users/new">Create new User</a>-->
+
+<div th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+      <h2>Users</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+          <td th:text="${user.getId()}"></td>
+          <td th:text="${user.getName()}"></td>
+          <td th:text="${user.getLastname()}"></td>
+          <td th:text="${user.getAge()}"></td>
+          <td><a th:href="@{delete/{id}(id=${user.id})}">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+  <p><a href="/users/new">Create user</a></p>
+</div>
 </body>
 </html>

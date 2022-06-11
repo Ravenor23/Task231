@@ -4,24 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import spring.kata.Task231.dao.UserDao;
 import spring.kata.Task231.model.User;
+import spring.kata.Task231.service.UserServiceImpl;
+
 
 @Controller
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UserDao userDao;
+    private final UserServiceImpl userServiceImpl;
 
     @Autowired
-    public UsersController(UserDao userDao) {
-        this.userDao = userDao;
+    public UsersController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping()
     public String getIndex(Model model) {
-        model.addAttribute("users", userDao.getAllUser());
+        model.addAttribute("users", userServiceImpl.getAllUser());
         return "users/index";
     }
 
@@ -32,19 +32,25 @@ public class UsersController {
 
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
-        userDao.saveUser(user);
+        userServiceImpl.saveUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userDao.getUserById(id));
+        model.addAttribute("user", userServiceImpl.getUserById(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        userDao.updateUser(id, user);
+        userServiceImpl.updateUser(id, user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        userServiceImpl.deleteUser(id);
         return "redirect:/users";
     }
 

@@ -21,8 +21,8 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @ComponentScan(basePackages = "spring.kata.Task231")
 public class WebConfig implements WebMvcConfigurer{
 
-    /*//с этим конфигом: The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
-    @Bean
+    //с этим конфигом: The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
+    /*@Bean
     ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/views/");

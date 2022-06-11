@@ -12,7 +12,6 @@ public class UserDaoImpl implements UserDao {
     private EntityManager em;
 
     public UserDaoImpl() {}
-
     @Override
     public void saveUser(User user) {
         em.persist(user);
@@ -24,8 +23,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllUser()  {
-        return em.createQuery("from User").getResultList();
+    public List<User> getAllUser() {
+        Query query = em.createQuery("from User as u");
+        return query.getResultList();
     }
 
     @Override

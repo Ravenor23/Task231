@@ -3,21 +3,15 @@ package spring.kata.Task231.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spring.kata.Task231.dao.UserDaoImpl;
+import spring.kata.Task231.dao.UserDao;
 import spring.kata.Task231.model.User;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserDaoImpl userDao;
-
     @Autowired
-    public UserServiceImpl(UserDaoImpl userDao) {
-        this.userDao = userDao;
-    }
-
-    public UserServiceImpl() {}
+    private UserDao userDao;
 
     @Override
     @Transactional

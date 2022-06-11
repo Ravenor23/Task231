@@ -24,16 +24,12 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "spring.kata.Task231")
 public class JPAConfig {
-
-
     private Environment env;
 
     @Autowired
     public void setEnv(Environment env) {
         this.env = env;
     }
-
-    public JPAConfig() {}
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
@@ -58,12 +54,12 @@ public class JPAConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory().setDataSource(dataSource());
+        factoryBean.setDataSource(dataSource());
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         factoryBean.setJpaVendorAdapter(vendorAdapter);
 
-        entityManagerFactory().setPackagesToScan("spring.kata.Task231.model");
+        factoryBean.setPackagesToScan("spring.kata.Task231.model");
         factoryBean.setJpaProperties(hibernateProperties());
         return factoryBean;
     }

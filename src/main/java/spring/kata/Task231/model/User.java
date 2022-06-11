@@ -1,13 +1,13 @@
 package spring.kata.Task231.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.springframework.stereotype.Component;
-
 @Component
 @Entity
 @Table(name="users")
 public class User {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column

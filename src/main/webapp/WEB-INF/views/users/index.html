@@ -1,52 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Index</title>
 </head>
 <body>
-<!--<table border="1">
-  <tr>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Lastname</th>
-    <th>Age</th>
-  </tr>
-  <tr th:each ="user : ${users}">
-    <td th:utext="${user.getId()}"></td>
-    <td th:utext="${user.getName()}"></td>
-    <td th:utext="${user.getLastname()}"></td>
-    <td th:utext="${user.getAge()}"></td>
-  </tr>
-</table>
-<a href="/users/new">Create new User</a>-->
-
-<div th:switch="${users}">
-    <h2 th:case="null">No users found!</h2>
-    <div th:case="*">
-      <h2>Users</h2>
-      <table>
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>First name</th>
-          <th>Last name</th>
-          <th>Age</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-          <td th:text="${user.getId()}"></td>
-          <td th:text="${user.getName()}"></td>
-          <td th:text="${user.getLastname()}"></td>
-          <td th:text="${user.getAge()}"></td>
-          <td><a th:href="@{delete/{id}(id=${user.id})}">Delete</a></td>
-          <td><a th:href="@{edit/{id}(id=${user.id})}">Edit</a></td>
-        </tr>
-        </tbody>
-      </table>
-  </div>
-  <p><a href="/users/new">Create user</a></p>
+<h2>Users</h2>
+<div th:each="user : ${users}">
+  <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
 </div>
+
+<br/>
+<hr/>
+
+<a href="/users/new">Create new user</a>
+
 </body>
 </html>

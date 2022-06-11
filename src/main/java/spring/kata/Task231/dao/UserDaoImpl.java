@@ -1,15 +1,16 @@
 package spring.kata.Task231.dao;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import spring.kata.Task231.model.User;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Component
+@Repository
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager em;
+
     public UserDaoImpl() {}
 
     @Override
@@ -19,32 +20,22 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(Long id) {
-        Query query = em.createQuery("delete from User u where u.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+        em.remove(getById(id));
     }
 
     @Override
     public List<User> getAllUser()  {
-        Query query = em.createQuery("select User from User");
-        return query.getResultList();
+        return em.createQuery("from User").getResultList();
     }
 
     @Override
     public User getById(Long id) {
-        Query query = em.createQuery("select User as u from User where u.id = :id");
-        query.setParameter("id", id);
-        return ((User) query.getSingleResult());
+        return em.find(User.class, id);
     }
 
     @Override
-    public void edit(Long id, User user) {
-        Query query = em.createQuery("update User as u set u.name = :name, u.lastname = :lastname, u.age = :age where u.id = :id");
-        query.setParameter("id", id);
-        query.setParameter("name", user.getName());
-        query.setParameter("lastname", user.getLastname());
-        query.setParameter("age", user.getAge());
-        query.executeUpdate();
+    public void edit(User user) {
+        em.merge(user);
     }
 
 

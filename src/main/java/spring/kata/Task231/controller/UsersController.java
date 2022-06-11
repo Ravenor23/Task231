@@ -38,13 +38,13 @@ public class UsersController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userServiceImpl.getUserById(id));
+        model.addAttribute("user", userServiceImpl.getById(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        userServiceImpl.updateUser(id, user);
+        userServiceImpl.edit(user);
         return "redirect:/users";
     }
 

@@ -3,17 +3,14 @@ package spring.kata.Task231.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spring.kata.Task231.dao.UserDao;
 import spring.kata.Task231.dao.UserDaoImpl;
 import spring.kata.Task231.model.User;
-import spring.kata.Task231.repo.UserRepository;
 
 import java.util.List;
 
 @Service
-@Transactional
-public class UserServiceImpl {
-    private UserDao userDao;
+public class UserServiceImpl implements UserService {
+    private UserDaoImpl userDao;
 
     @Autowired
     public UserServiceImpl(UserDaoImpl userDao) {
@@ -22,28 +19,33 @@ public class UserServiceImpl {
 
     public UserServiceImpl() {}
 
+    @Override
     @Transactional
     public void saveUser(User user) {
         userDao.saveUser(user);
     }
 
+    @Override
     @Transactional
-    public User getUserById(Long id) {
+    public User getById(Long id) {
         return userDao.getById(id);
     }
 
+    @Override
     @Transactional
     public void deleteUser(Long id) {
         userDao.deleteUser(id);
     }
 
+    @Override
     @Transactional
     public List<User> getAllUser()  {
         return userDao.getAllUser();
     }
 
+    @Override
     @Transactional
-    public void updateUser(Long id, User user) {
-        userDao.edit(id, user);
+    public void edit(User user) {
+        userDao.edit(user);
     }
 }
